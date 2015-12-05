@@ -12,12 +12,16 @@ class MainTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("View Loaded!")
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        let test = ConnectToWH()
+        test.sendRequest()
+        
     }
 
     override func didReceiveMemoryWarning() {
