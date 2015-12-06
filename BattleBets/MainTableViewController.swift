@@ -11,6 +11,7 @@ import UIKit
 class MainTableViewController: UITableViewController {
     
     var mainArray = [AnyObject]()
+    var ticket = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,16 +22,34 @@ class MainTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        let test = Networking()
-        //test.login()
-       // test.getEvents()
+        let smome = Networking()
+        smome.login { (data) -> Void in
+            self.ticket = data["ticket"]!
+        }
+        smome.getEvents { (data) -> Void in
+            
+            self.mainArray = data
+            print(data[0].allKeys)
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.tableView.reloadData()
+                print("TableView reloaded!")
+            })
+        }
         
+    }
+    
+    func clean() {
+        for items in mainArray {
+            print(items.allKeys)
+        }
     }
 
 
     @IBAction func test(sender: AnyObject) {
         performSegueWithIdentifier("MainS", sender: sender)
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -39,27 +58,35 @@ class MainTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if mainArray.isEmpty {
-            return 0
-        } else {
-            return 0
-        }
+        
+        return mainArray.count
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        performSegueWithIdentifier("MainS", sender: nil)
+        let destination = Networking()
+        destination.passedDate = mainArray[indexPath.row] as! [String : String]
+
     }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        
+            let data = mainArray[indexPath.row]
+            print(data)
+            cell.textLabel?.text = (data["name"] as! String)
+        
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -96,14 +123,16 @@ class MainTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
+//    // In a storyboard-based application, you will often want to do a little preparation before navigation
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        let destination = DetailViewViewController()
+//        let loc = tableView.indexPathForSelectedRow!.row
+//        destination.data = mainArray[loc] as! [String : String]
+//    }
+    
 
 }

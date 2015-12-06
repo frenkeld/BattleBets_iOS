@@ -12,7 +12,6 @@
 		845B3FDE1C13325300A85BDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845B3FDD1C13325300A85BDC /* Assets.xcassets */; };
 		845B3FE11C13325300A85BDC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845B3FDF1C13325300A85BDC /* LaunchScreen.storyboard */; };
 		845B3FE91C13339B00A85BDC /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B3FE81C13339B00A85BDC /* MainTableViewController.swift */; };
-		845B3FEB1C1334F100A85BDC /* ConnectToWH.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B3FEA1C1334F100A85BDC /* ConnectToWH.swift */; };
 		845B3FED1C1375D300A85BDC /* DetailViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B3FEC1C1375D300A85BDC /* DetailViewViewController.swift */; };
 		845B3FEF1C13993500A85BDC /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B3FEE1C13993500A85BDC /* Networking.swift */; };
 /* End PBXBuildFile section */
@@ -25,7 +24,6 @@
 		845B3FE01C13325300A85BDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		845B3FE21C13325300A85BDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		845B3FE81C13339B00A85BDC /* MainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
-		845B3FEA1C1334F100A85BDC /* ConnectToWH.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectToWH.swift; sourceTree = "<group>"; };
 		845B3FEC1C1375D300A85BDC /* DetailViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewViewController.swift; sourceTree = "<group>"; };
 		845B3FEE1C13993500A85BDC /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -63,7 +61,6 @@
 				845B3FD61C13325300A85BDC /* AppDelegate.swift */,
 				845B3FE81C13339B00A85BDC /* MainTableViewController.swift */,
 				845B3FEC1C1375D300A85BDC /* DetailViewViewController.swift */,
-				845B3FEA1C1334F100A85BDC /* ConnectToWH.swift */,
 				845B3FEE1C13993500A85BDC /* Networking.swift */,
 				845B3FDA1C13325300A85BDC /* Main.storyboard */,
 				845B3FDD1C13325300A85BDC /* Assets.xcassets */,
@@ -145,7 +142,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				845B3FEB1C1334F100A85BDC /* ConnectToWH.swift in Sources */,
 				845B3FEF1C13993500A85BDC /* Networking.swift in Sources */,
 				845B3FE91C13339B00A85BDC /* MainTableViewController.swift in Sources */,
 				845B3FED1C1375D300A85BDC /* DetailViewViewController.swift in Sources */,

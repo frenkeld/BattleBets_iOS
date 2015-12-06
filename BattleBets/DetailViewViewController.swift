@@ -10,6 +10,7 @@ import UIKit
 
 class DetailViewViewController: UIViewController {
 
+
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var cashLabel: UILabel!
     @IBOutlet weak var moneySlider: UISlider!
@@ -17,9 +18,14 @@ class DetailViewViewController: UIViewController {
     var moneyLeft = 500
     var bet = 1
     
+    var data = [String: String]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(data)
+        
         cashLabel.text = "£\(bet)"
         walletLabel.text = "£\(moneyLeft - bet)"
 
