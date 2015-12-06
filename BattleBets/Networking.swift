@@ -14,8 +14,6 @@ class Networking: NSObject {
     let config = NSURLSessionConfiguration.defaultSessionConfiguration()
     let session = NSURLSession.sharedSession()
     
-    var passedDate = [String : String]()
-    
     
     func login(block: (Dictionary<String, String> -> Void)) {
         let queryURL = NSURL(string: "https://cece9dca.ngrok.io/login/tc_999wx/67999164")

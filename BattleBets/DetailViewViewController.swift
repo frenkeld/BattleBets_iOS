@@ -18,23 +18,25 @@ class DetailViewViewController: UIViewController {
     var moneyLeft = 500
     var bet = 1
     
-    var data = [String: String]()
-    
+    var data = [String : AnyObject]()
+    //var outcomes =
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(data)
-        
         cashLabel.text = "£\(bet)"
         walletLabel.text = "£\(moneyLeft - bet)"
-
         
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            let url = NSURL(string: "http://www.twitch.tv/mushisgosu/embed")
+            let url = NSURL(string: "\(self.data["twitchUrl"]!)/embed")
             let request = NSURLRequest(URL: url!)
             self.webView.allowsInlineMediaPlayback = true
             self.webView.loadRequest(request)
+        }
+        
+        let network = Networking()
+        network.getOutcomes(data["id"] as! String) { (data) -> Void in
+            print(data.allkeys)
         }
         
         
@@ -53,6 +55,13 @@ class DetailViewViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    @IBAction func betTeamOne(sender: AnyObject) {
+        
+    }
+    
+    @IBAction func betTeamTwo(sender: AnyObject) {
+        
     }
     
 

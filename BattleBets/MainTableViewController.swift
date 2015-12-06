@@ -29,22 +29,15 @@ class MainTableViewController: UITableViewController {
         smome.getEvents { (data) -> Void in
             
             self.mainArray = data
-            print(data[0].allKeys)
+            
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.tableView.reloadData()
-                print("TableView reloaded!")
             })
         }
         
     }
     
-    func clean() {
-        for items in mainArray {
-            print(items.allKeys)
-        }
-    }
-
 
     @IBAction func test(sender: AnyObject) {
         performSegueWithIdentifier("MainS", sender: sender)
@@ -70,8 +63,6 @@ class MainTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         performSegueWithIdentifier("MainS", sender: nil)
-        let destination = Networking()
-        destination.passedDate = mainArray[indexPath.row] as! [String : String]
 
     }
 
@@ -80,7 +71,6 @@ class MainTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
             let data = mainArray[indexPath.row]
-            print(data)
             cell.textLabel?.text = (data["name"] as! String)
         
 
@@ -127,12 +117,14 @@ class MainTableViewController: UITableViewController {
     // MARK: - Navigation
 
     
-//    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        let destination = DetailViewViewController()
-//        let loc = tableView.indexPathForSelectedRow!.row
-//        destination.data = mainArray[loc] as! [String : String]
-//    }
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let destinationNavigationController = segue.destinationViewController as! DetailViewViewController
+        let loc = tableView.indexPathForSelectedRow!.row
+        let array = mainArray[loc]
+        destinationNavigationController.title = array["name"] as! String
+        destinationNavigationController.data = mainArray[loc] as! [String : AnyObject]
+    }
     
 
 }
