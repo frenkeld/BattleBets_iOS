@@ -9,6 +9,8 @@
 import UIKit
 
 class MainTableViewController: UITableViewController {
+    
+    var mainArray = [AnyObject]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,11 +21,16 @@ class MainTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        let test = ConnectToWH()
-        test.sendRequest()
+        let test = Networking()
+        //test.login()
+       // test.getEvents()
         
     }
 
+
+    @IBAction func test(sender: AnyObject) {
+        performSegueWithIdentifier("MainS", sender: sender)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -32,13 +39,16 @@ class MainTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        
+        if mainArray.isEmpty {
+            return 0
+        } else {
+            return 0
+        }
     }
 
     /*

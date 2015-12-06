@@ -20,10 +20,11 @@ class ConnectToWH: NSObject {
     
 
     func sendRequest() {
+        
         let bodyObject = "username=tc_705pj&password=17705645"
         //let bodyObject = ["username":"tc_705pj", "password":"17705645"]
         
-        let queryURL = NSURL(string: "10.11.21.175:8080")
+        let queryURL = NSURL(string: "https://sandbox.whapi.com/v1/sessions/tickets")
         let request = NSMutableURLRequest(URL: queryURL!)
         
         request.HTTPMethod = "POST"
@@ -37,13 +38,12 @@ class ConnectToWH: NSObject {
 
         request.HTTPBody = bodyObject.dataUsingEncoding(NSUTF8StringEncoding)
         
-        //print("Request Sent: \(request.HTTPBody?.description.utf8)")
+        print("Request Sent: \(request.HTTPBody?.description.utf8)")
         
         
         let dataTask = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
-           
-            print(data)
-            //var jsonData = try!NSJSONSerialization.dataWithJSONObject(data!, options: [])
+            
+            print(response)
         }
         dataTask.resume()
         
