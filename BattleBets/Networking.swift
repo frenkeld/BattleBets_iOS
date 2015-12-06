@@ -14,9 +14,6 @@ class Networking: NSObject {
     let config = NSURLSessionConfiguration.defaultSessionConfiguration()
     let session = NSURLSession.sharedSession()
     
-    var ticket = ""
-    
-    
     
     func login() {
         let queryURL = NSURL(string: "https://cece9dca.ngrok.io/login/tc_999wx/67999164")
@@ -24,15 +21,10 @@ class Networking: NSObject {
         let dataTask = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
             let jsonData = try!NSJSONSerialization.JSONObjectWithData(data!, options: [])
             let jsonDict = jsonData as! Dictionary <String, String>
-            self.setVariables(jsonDict["ticket"]!)
         }
         dataTask.resume()
     }
     
-    func setVariables(input: String) {
-        ticket = input
-        print(ticket)
-    }
     
     func getEvents() {
         let queryURL = NSURL(string: "https://cece9dca.ngrok.io/events")
@@ -44,7 +36,30 @@ class Networking: NSObject {
         dataTask.resume()
     }
     
-
+    func getOutcomes(eventId: String) {
+        let queryURL = NSURL(string: "https://cece9dca.ngrok.io/events/\(eventId)/outcomes")
+        let request = NSMutableURLRequest(URL: queryURL!)
+        let dataTask = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+            let jsonData = try!NSJSONSerialization.JSONObjectWithData(data!, options: [])
+            let jsonDict = jsonData as! Array <AnyObject>
+        }
+        dataTask.resume()
+    }
     
-
+    func sendBet(outcomeId: String, ticket: String, priceF: String, stake: String) {
+        
+        let body = ["ticket": ticket, "priceFrac" : priceF, "stake": stake]
+        
+        let queryURL = NSURL(string: "https://cece9dca.ngrok.io/events/bets/\(outcomeId)")
+        let request = NSMutableURLRequest(URL: queryURL!)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = try!NSJSONSerialization.dataWithJSONObject(body, options: [])
+        let dataTask = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
+            print(error)
+        }
+        dataTask.resume()
+        
+    }
+    
+    
 }
