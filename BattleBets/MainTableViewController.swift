@@ -15,6 +15,8 @@ class MainTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tabBarController?.tabBar.backgroundColor = UIColor(red: 255/51.0, green: 255/122.0, blue: 255/183.0, alpha: 1.0)
         print("View Loaded!")
 
         // Uncomment the following line to preserve selection between presentations
@@ -72,6 +74,7 @@ class MainTableViewController: UITableViewController {
         
             let data = mainArray[indexPath.row]
             cell.textLabel?.text = (data["name"] as! String)
+            cell.detailTextLabel?.text = (data["date"] as! String)
         
 
         return cell
@@ -124,6 +127,7 @@ class MainTableViewController: UITableViewController {
         let array = mainArray[loc]
         destinationNavigationController.title = array["name"] as! String
         destinationNavigationController.data = mainArray[loc] as! [String : AnyObject]
+        
     }
     
 

@@ -11,6 +11,7 @@ import UIKit
 class DetailViewViewController: UIViewController {
 
 
+    @IBOutlet weak var pastBetsList: UITextView!
     @IBOutlet weak var webView: UIWebView!
     @IBOutlet weak var cashLabel: UILabel!
     @IBOutlet weak var moneySlider: UISlider!
@@ -19,7 +20,8 @@ class DetailViewViewController: UIViewController {
     var bet = 1
     
     var data = [String : AnyObject]()
-    //var outcomes =
+    var outcomes = [AnyObject]()
+    var ticket = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +38,22 @@ class DetailViewViewController: UIViewController {
         
         let network = Networking()
         network.getOutcomes(data["id"] as! String) { (data) -> Void in
-            print(data.allkeys)
+            self.outcomes = data
         }
+        network.login { (data) -> Void in
+            self.ticket = data["ticket"]!
+            
+            network.getPastBets(self.ticket) { (data) -> Void in
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    for item in data {
+                        let da = item["stake"] as! String
+                        print(da)
+                        self.pastBetsList.text = self.pastBetsList.text + "Bet: £\(da)\n"
+                        
+                    }                })
+            }
+        }
+
         
         
     }
@@ -57,10 +73,50 @@ class DetailViewViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func betTeamOne(sender: AnyObject) {
+        let tone = outcomes[0]
+        
+        let smth = tone["odds"] as! Dictionary <String, AnyObject>
+        
+        let deep = smth["livePrice"] as! Dictionary <String, AnyObject>
+        
+        let priceFrac = deep["priceFrac"] as! String
+        
+        let id = tone["id"] as! String
+        
+        let network = Networking()
+        
+        network.sendBet(id, ticket: ticket, priceF: priceFrac, stake: "\(moneySlider.value)") { (data) -> Void in
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.moneyLeft = self.moneyLeft - Int(self.moneySlider.value)
+                self.presentViewController(data, animated: true, completion: nil)
+
+            })
+        }
         
     }
     
     @IBAction func betTeamTwo(sender: AnyObject) {
+        let tone = outcomes[1]
+        
+        let smth = tone["odds"] as! Dictionary <String, AnyObject>
+        
+        let deep = smth["livePrice"] as! Dictionary <String, AnyObject>
+        
+        let priceFrac = deep["priceFrac"] as! String
+        
+        let id = tone["id"] as! String
+        
+        let network = Networking()
+        
+        network.sendBet(id, ticket: ticket, priceF: priceFrac, stake: "\(moneySlider.value)") { (data) -> Void in
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.moneyLeft = self.moneyLeft - Int(self.moneySlider.value)
+                self.presentViewController(data, animated: true, completion: nil)
+                
+            })
+        }
         
     }
     
